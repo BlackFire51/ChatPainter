@@ -1,0 +1,9 @@
+## Interface: 11302
+## Title: Chat Painter
+## Version: 0.12
+## Author: Matze
+## Notes: Paint stuff in chat
+
+## X-Category: Chat
+
+ChatPainter.lua
