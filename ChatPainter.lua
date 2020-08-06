@@ -62,7 +62,7 @@ local iconKeywords={
 local iniKeywords={
 	{ words={"dm","DM","Todesminen","Todesmine","Deathmines"}, lvl = {17,26}, blacklist={"Nord","West","Ost"}},
 	{ words={"Höllen des Wehklagens","hdw"}, lvl = {17,24}},
-	{ words={"Burg Schattenfang","Bsf"}, lvl = {20,32}},
+	{ words={"Burg Schattenfang","Bsf","Bft"}, lvl = {20,32}},
 	{ words={"Verlies","verlies"}, lvl = {24,32}},
 	{ words={"Bfd","Tsg","Tiefschwarze Grotte","Blackfathom Tiefe"}, lvl = {24,32}},
 	{ words={"Gnome","Gnomeregan"}, lvl = {29,38}},
@@ -163,7 +163,7 @@ local function myChatFilter(self, event, msg, author, ...)
 					local lvlDiff=99
 					if(row.lvl and row.lvl[1]) then
 						local lvl = UnitLevel("PLAYER")
-						if(row.lvl[1]< lvl-2 and row.lvl[2]>lvl and not IsInGroup() ) then
+						if(row.lvl[1]-3< lvl and row.lvl[2]-3>lvl and not IsInGroup() ) then
 							PlaySound(3081,"master")
 						end
 						addText="("..tostring(row.lvl[1]).."-"..tostring(row.lvl[2])..")"
