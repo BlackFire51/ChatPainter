@@ -127,13 +127,12 @@ end
 -- 	end
 -- end
 local DEBUG=false
-local foundSpot={}
 local function findInstances(msg)
 
 	local msglow = strlower(msg)
 	
 	local instanceList={}
-
+	local foundSpot={}
 	for i,ini in ipairs(iniKeywords) do
 		for j,word in ipairs(ini.words) do
 			--if DEBUG then print("check "..word) end
@@ -145,8 +144,9 @@ local function findInstances(msg)
 				-- check if the spot is blacklisted
 				for k,spot in ipairs(foundSpot) do
 					if(DEBUG) then print(">f: "..tostring(spot[1]).." t: "..tostring(spot[2])) end
-					if( (startPos>=spot[1] and startPos>spot[1] ) or
-						(startPos>=spot[2] and startPos>spot[2] )    ) then
+
+					if( (startPos>=spot[1] and startPos<spot[2] ) or
+						(endPos>=spot[1] and endPos>spot[2] )    ) then
 						skip=true
 					end
 				end
@@ -186,8 +186,8 @@ local function findSubInis(msg, idArr)
 					local skip=false
 					for k,spot in ipairs(foundSpot) do
 
-						if( (startPos>=spot[1] and startPos>spot[1] ) or
-							(startPos>=spot[2] and startPos>spot[2] )    ) then
+						if( (startPos>=spot[1] and startPos<spot[2] ) or
+							(endPos>=spot[1] and endPos>spot[2] )    ) then
 								-- to nothing
 								if DEBUG then print("sub ini invalide pos skipping") end
 								skip=true
@@ -208,7 +208,6 @@ end
 
 local function myChatFilter(self, event, msg, author, ...)
 	local channelStr, charName, ukn1,a,b, channelNum, channelName ,ukn2,unk3 ,senderGUID, ukn4, unk5 = ...
-	foundSpot={}
 	--print(...)
 	--print(a)
 	--print(b)
