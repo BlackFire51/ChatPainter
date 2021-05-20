@@ -6,4 +6,6 @@
 
 ## X-Category: Chat
 
+data.lua
+functions.lua
 ChatPainter.lua
