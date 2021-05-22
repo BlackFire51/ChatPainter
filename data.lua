@@ -25,7 +25,7 @@ M_ChatPainter.arraySortByLen=arraySortByLen
 
 
 local iconKeywords={
-	{watch=true, texture="Interface\\Icons\\ability_warrior_shieldwall",color="5c98f2", words={"tank","Tank"}},
+	{watch=true, texture="Interface\\Icons\\ability_warrior_shieldwall",color="5c98f2", words={"tank"}},
 	{watch=false, texture="Interface\\Icons\\Ability_ghoulfrenzy",color="f25f5c", words={"dd"}},
 	{watch=false, texture="Interface\\Icons\\Spell_nature_healingtouch",color="1cd96b", words={"heal","heiler"}} -- "heal" all lower must be first because of texture name
 }

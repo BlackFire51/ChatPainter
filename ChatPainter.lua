@@ -12,16 +12,7 @@ local function colorText(text,lvlDiff)
 	end
 	return "|CFF"..txt..text.."|r"	--|cAARRGGBB https://wowwiki.fandom.com/wiki/UI_escape_sequences
 end
-local function addTexture(text,texture,color) 
-	local t= "Interface\\Icons\\ability_warrior_shieldwall";
-	if(texture ) then
-		t= texture;
-	end
-	if(color) then 
-		text="|CFF"..color..text.."|r"
-	end
-	return "|T"..t..":0|t"..text;
-end
+
 
 local function arrayContains(array,needle) 
 	for index, value in ipairs(array) do
@@ -68,6 +59,7 @@ local iniSubinstances = M_ChatPainter.iniSubinstances
 -- 	end
 -- end
 local DEBUG=false
+local DEBUG_ROLE=false
 local function findInstances(msg)
 
 	local msglow = strlower(msg)
@@ -147,9 +139,13 @@ local function findSubInis(msg, idArr)
 	return instanceList
 end
 
-
+local lastLineId=0
 local function myChatFilter(self, event, msg, author, ...)
-	local channelStr, charName, ukn1,a,b, channelNum, channelName ,ukn2,unk3 ,senderGUID, ukn4, unk5 = ...
+	local channelStr, charName, ukn1,a,b, channelNum, channelName ,ukn2,lineID ,senderGUID, ukn4, unk5 = ...
+	if(lastLineId == lineID) then 
+		return false, msg , author, ... 
+	end
+	lastLineId=lineID
 	--print(...)
 	--print(a)
 	--print(b)
@@ -159,7 +155,6 @@ local function myChatFilter(self, event, msg, author, ...)
 	--print(self)
 	--dump(self)
 	--print(event)
-	if DEBUG then print(msg) end
 	--print(msg)
 	--print(author)
 	--print(senderGUID)
@@ -229,16 +224,30 @@ local function myChatFilter(self, event, msg, author, ...)
 	-- #####
 	-- Find rols and color them
 
+	local RolePosLock={}
 	for i,row in ipairs(iconKeywords) do
+		local minPos=0
 		for j,word in ipairs(row.words) do
-			if msg:find(word) then
+			if msglow:find(word) then
 				local startPosA,endPosA = strfind(msglow,string.lower(word))
 				local startPosB,endPosB = strfind(msglow,"healingtouch")
-				if startPosB ~=nil and startPosB > 0 and (abs(startPosA-startPosB) > 4 ) or
-				startPosB ==nil then
-					msg= M_ChatPainter.stringReplaceIndex(msg,startPosA,endPosA,addTexture(word,row.texture,row.color) ) --gsub(msg, word, addTexture(word,row.texture,row.color))
-					mod=true
-					myRoll = myRoll or row.watch
+				if startPosA>minPos then 
+					minPos=startPosA
+					if startPosB ==nil or startPosB > 0 and (abs(startPosA-startPosB) > 4 ) then
+						if DEBUG_ROLE then print("found role "..word) end
+						if DEBUG_ROLE then print("role "..startPosA .. "to:"..endPosA) end
+						local newTxt = M_ChatPainter.addTexture(word,row.texture,row.color);
+
+						--table.insert(RolePosLock,{startPosA , startPosA +string.len(newTxt) } )
+						--msg= M_ChatPainter.stringReplaceIndex(msg,startPosA,endPosA, newTxt) 
+						local mWord = strsub(msg,startPosA,endPosA)
+						--print("found role -"..mWord .."- for-".. word)
+						--print("@"..startPosA .."-".. string.len(word) .. "line: "..lineID)
+						msg = gsub(msg, mWord, newTxt)
+						msglow = string.lower(msg)
+						mod=true
+						myRoll = myRoll or row.watch
+					end
 				end
 			end
 		end
@@ -248,7 +257,7 @@ local function myChatFilter(self, event, msg, author, ...)
 	if mod then
 		return false, msg, author, ...
 	end
-  end
+end
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", myChatFilter)
 
