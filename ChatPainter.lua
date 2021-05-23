@@ -221,6 +221,9 @@ local function myChatFilter(self, event, msg, author, ...)
 	end --- end instances 
 
 
+
+	-- if a instance is found we change the msg so we perhaps need to update it
+	msglow = string.lower(msg)
 	-- #####
 	-- Find rols and color them
 
