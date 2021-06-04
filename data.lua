@@ -56,7 +56,7 @@ local iniKeywords={
 	{ words={"sklaven","slavepen","sklavenunterkünfte"}, lvl = {62,64}},
 	{ words={"tiefensumpf"}, lvl = {63,65}},
 	{ words={"mana","managruft"}, lvl = {64,66}},
-	{ words={"auchenai","ak"}, lvl = {65,67}},
+	{ words={"auchenai"}, lvl = {65,67}},
 	{ words={"vdah","hdz1"}, lvl = {66,68}},
 	{ words={"sethekkhallen"}, lvl = {67,68}},
 	{ words={"schattenlabyrinth","schlabbi"}, lvl = {67,75}},

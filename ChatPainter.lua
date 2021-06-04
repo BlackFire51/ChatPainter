@@ -70,7 +70,8 @@ local function findInstances(msg)
 	for i,ini in ipairs(iniKeywords) do
 		for j,word in ipairs(ini.words) do
 			--if DEBUG then print("check "..word) end
-			if msg:find(word) or msglow:find(string.lower(word)) then
+			--if msg:find(word) or msglow:find(string.lower(word)) then
+			if string.match(msglow,"[ /]"..string.lower(word),0) ~= nil then
 				if DEBUG then print("found "..word.." :" ..tostring(msg:find(word))) end
 				local skip=false
 				local startPos,endPos = strfind(msglow,string.lower(word))
