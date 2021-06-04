@@ -51,7 +51,7 @@ local iniKeywords={
 	{ words={"scholo","Scholomance"}, lvl = {58,60}},
 
 	----- BC 
-	{ words={"bollwerk","hfb"}, lvl = {58,62}},
+	{ words={"bollwerk","hfb","bw"}, lvl = {58,62}},
 	{ words={"blutkessel","bk"}, lvl = {61,63}},
 	{ words={"sklaven","slavepen","sklavenunterkünfte"}, lvl = {62,64}},
 	{ words={"tiefensumpf"}, lvl = {63,65}},
