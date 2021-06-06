@@ -1,17 +1,8 @@
+local addonName, NS = ...
 
-local function colorText(text,lvlDiff) 
-	local orange="fc8c03"
-	local yellow="fce703"
-	local green="00b530"
-	local txt=orange
-	if(lvlDiff and lvlDiff<2) then
-		txt=yellow
-	end
-	if(lvlDiff and lvlDiff<-5) then
-		txt=green
-	end
-	return "|CFF"..txt..text.."|r"	--|cAARRGGBB https://wowwiki.fandom.com/wiki/UI_escape_sequences
-end
+NS.settings={}
+NS.settings.addLevels=true
+NS.settings.NotificationSound=false
 
 
 local function arrayContains(array,needle) 
@@ -71,9 +62,28 @@ local function findInstances(msg)
 		for j,word in ipairs(ini.words) do
 			--if DEBUG then print("check "..word) end
 			--if msg:find(word) or msglow:find(string.lower(word)) then
+
 			if string.match(msglow,"[ /]"..string.lower(word),0) ~= nil then
-				if DEBUG then print("found "..word.." :" ..tostring(msg:find(word))) end
+
 				local skip=false
+
+				if(strlen(word)<4) then
+					-- since sets in paternmatching is broke AF if you use magic characters we do it by hand 
+					local beg,en = string.find(msglow,"[ /]"..string.lower(word))
+					local isOK=false
+					if strlen(word)<en+1 then 
+						isOK= isOK or true -- we are at the end of the string
+					end
+					if msglow:sub(en+1,en+1) == " " then 
+						isOK= isOK or true -- next char is space
+					end
+					if isOK == false then
+						skip=true
+					end
+				end
+
+				if DEBUG then print("found "..word ) end
+				
 				local startPos,endPos = strfind(msglow,string.lower(word))
 				if(DEBUG) then print("f: "..tostring(startPos).." t: "..tostring(endPos)) end
 				-- check if the spot is blacklisted
@@ -181,17 +191,22 @@ local function myChatFilter(self, event, msg, author, ...)
 			-- check levels
 			local addText=""
 			local lvlDiff=99
+			local lvlDiffMax=99
+
 			if(ini.lvl and ini.lvl[1]) then
 				local lvl = UnitLevel("PLAYER")
-				if(ini.lvl[1]-3< lvl and ini.lvl[2]-3>lvl and not IsInGroup() ) then
+				if(ini.lvl[1]-3< lvl and ini.lvl[2]-3>lvl and NS.settings.NotificationSound and not IsInGroup() ) then
 					-- if it is my lvl range play sound
 					PlaySound(3081,"master")
 				end
-				addText="("..tostring(ini.lvl[1]).."-"..tostring(ini.lvl[2])..")"
+				if NS.settings.addLevels then
+					addText="("..tostring(ini.lvl[1]).."-"..tostring(ini.lvl[2])..")"
+				end
 				lvlDiff=ini.lvl[1]-lvl
+				lvlDiffMax=ini.lvl[2]-lvl
 			end
 			--print(row.lvl[1])
-			local newWord=colorText(iniObj.w,lvlDiff)..addText;
+			local newWord=NS.functions.colorText(iniObj.w,lvlDiff,lvlDiffMax)..addText;
 			msg= gsub(msg, iniObj.w, newWord) -- replace txt in msg 
 			msg_offset=msg_offset+(strlen(newWord)-strlen(iniObj.w))
 			mod=true
@@ -206,9 +221,11 @@ local function myChatFilter(self, event, msg, author, ...)
 					if DEBUG then print("found ini "..subIni.words[1]) end
 					local addText=""
 					if(subIni.lvl and subIni.lvl[1]) then
-						addText="("..tostring(subIni.lvl[1]).."-"..tostring(subIni.lvl[2])..")"
+						if NS.settings.addLevels then
+							addText="("..tostring(subIni.lvl[1]).."-"..tostring(subIni.lvl[2])..")"
+						end
 
-						local newWord=colorText(subIniObj.w,lvlDiff)..addText;
+						local newWord=NS.functions.colorText(subIniObj.w,lvlDiff,lvlDiffMax)..addText;
 						msg= gsub(msg, subIniObj.w, newWord)
 
 					end
@@ -270,6 +287,9 @@ SLASH_CHATPAINTER1 = "/cp"
 SlashCmdList["CHATPAINTER"] = function( msg, ...)
    print(msg)
    --print(...)
+   for key,value in ipairs(...) do
+	print(value)
+   end
    DEBUG=true
    local bool,retMsg,auth = myChatFilter(nil, "CHAT_MSG_CHANNEL", msg, "Nobody", "channelStr", "charName", "ukn1","a","b", 4, "SucheNachGruppe" ,"ukn2","unk3" ,"senderGUID", "ukn4", "unk5")
    DEBUG=false	

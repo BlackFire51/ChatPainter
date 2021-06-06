@@ -26,16 +26,16 @@ M_ChatPainter.arraySortByLen=arraySortByLen
 
 local iconKeywords={
 	{watch=true, texture="Interface\\Icons\\ability_warrior_shieldwall",color="5c98f2", words={"tank"}},
-	{watch=false, texture="Interface\\Icons\\Ability_ghoulfrenzy",color="f25f5c", words={"dd"}},
+	{watch=false, texture="Interface\\Icons\\Ability_ghoulfrenzy",color="f25f5c", words={"dd","dps"}},
 	{watch=false, texture="Interface\\Icons\\Spell_nature_healingtouch",color="1cd96b", words={"heal","healer","heiler"}} -- "heal" all lower must be first because of texture name
 }
 local iniKeywords={
 	{ words={"rfc","RFK"}, lvl = {13,18}},
 	{ words={"dm","Todesminen","Todesmine","Deathmines"}, lvl = {17,26}, blacklist={"Nord","West","Ost"}},
 	{ words={"höllen des wehklagens","hdw"}, lvl = {17,24}},
-	{ words={"burg schattenfang"," bsf"," bft"}, lvl = {20,32}},
+	{ words={"burg schattenfang","bsf","bft"}, lvl = {20,32}},
 	{ words={"Verlies","Verlis"}, lvl = {24,32}},
-	{ words={" bfd"," tsg","Tiefschwarze Grotte","Blackfathom Tiefe"}, lvl = {24,32}},
+	{ words={"bfd","tsg","Tiefschwarze Grotte","Blackfathom Tiefe"}, lvl = {24,32}},
 	{ words={"Gnome","Gnomeregan"}, lvl = {29,38}},
 	{ words={"RFK","Kral"}, lvl = {29,38}},
 	{ words={"RFH","Hügel"}, lvl = {37,46}},
@@ -53,18 +53,18 @@ local iniKeywords={
 	----- BC 
 	{ words={"bollwerk","hfb","bw"}, lvl = {58,62}},
 	{ words={"blutkessel","bk"}, lvl = {61,63}},
-	{ words={"sklaven","slavepen","sklavenunterkünfte"}, lvl = {62,64}},
-	{ words={"tiefensumpf"}, lvl = {63,65}},
+	{ words={"sklaven","slavepen","sklavenunterkünfte","slave pens","slave"}, lvl = {62,64}},
+	{ words={"tiefensumpf","ts","underbog"}, lvl = {63,65}},
 	{ words={"mana","managruft"}, lvl = {64,66}},
-	{ words={"auchenai"}, lvl = {65,67}},
-	{ words={"vdah","hdz1"}, lvl = {66,68}},
-	{ words={"sethekkhallen"}, lvl = {67,68}},
-	{ words={"schattenlabyrinth","schlabbi"}, lvl = {67,75}},
+	{ words={"auchenai","krypta","crypts"}, lvl = {65,67}},
+	{ words={"sethekkhallen","sethek"}, lvl = {67,68}},
+	{ words={"schattenlabyrinth","schlabbi","schattenlabby","sl"}, lvl = {67,75}},
 	{ words={"dampfkammer","dk"}, lvl = {67,75}},
 	{ words={"zerschmetterten hallen","hallen"}, lvl = {67,75}},
 	{ words={"mechanar","mecha"}, lvl = {67,75}},
 	{ words={"botanika","bota"}, lvl = {67,75}},
 	{ words={"arkatraz"}, lvl = {67,75}},
+	{ words={"vdah","hilfsbrad","hdz1"}, lvl = {66,68}},
 	{ words={"schwarze morast","morast","hdz2"}, lvl = {67,75}},
 	{ words={"terrasse der magister","tdm"}, lvl = {67,75}},
 }
