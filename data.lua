@@ -30,23 +30,23 @@ local iconKeywords={
 	{watch=false, texture="Interface\\Icons\\Spell_nature_healingtouch",color="1cd96b", words={"heal","healer","heiler"}} -- "heal" all lower must be first because of texture name
 }
 local iniKeywords={
-	{ words={"rfc","RFK"}, lvl = {13,18}},
-	{ words={"dm","Todesminen","Todesmine","Deathmines"}, lvl = {17,26}, blacklist={"Nord","West","Ost"}},
-	{ words={"höllen des wehklagens","hdw"}, lvl = {17,24}},
-	{ words={"burg schattenfang","bsf","bft"}, lvl = {20,32}},
-	{ words={"Verlies","Verlis"}, lvl = {24,32}},
-	{ words={"bfd","tsg","Tiefschwarze Grotte","Blackfathom Tiefe"}, lvl = {24,32}},
-	{ words={"Gnome","Gnomeregan"}, lvl = {29,38}},
-	{ words={"RFK","Kral"}, lvl = {29,38}},
-	{ words={"RFH","Hügel"}, lvl = {37,46}},
-	{ words={"Kloster"}, lvl = {34,45}, subIni={1,2,3,4}},
-	{ words={"Ulda","Uldaman"}, lvl = {41,51}},
+	{ words={"rfc","RFK"}, lvl = {13,16}},
+	{ words={"dm","Todesminen","Todesmine","Deathmines"}, lvl = {18,22}, blacklist={"Nord","West","Ost"}},
+	{ words={"höllen des wehklagens","hdw"}, lvl = {17,21}},
+	{ words={"burg schattenfang","bsf","bft"}, lvl = {18,21}},
+	{ words={"Verlies","Verlis"}, lvl = {23,29}},
+	{ words={"bfd","tsg","Tiefschwarze Grotte","Blackfathom Tiefe"}, lvl = {22,24}},
+	{ words={"Gnome","Gnomeregan"}, lvl = {25,28}},
+	{ words={"RFK","Kral"}, lvl = {24,27}},
+	{ words={"RFH","Hügel"}, lvl = {34,37}},
+	{ words={"Kloster"}, lvl = {30,40}, subIni={1,2,3,4}},
+	{ words={"Ulda","Uldaman"}, lvl = {36,40}},
 	{ words={"ZF","Zul","Zul´Farrak","Zul Farrak"} , lvl = {42,46}},
-	{ words={"Maraudon","Mara"}, lvl = {46,55}},
-	{ words={"Tempel"}, lvl = {50,56}},
-	{ words={"BRD","brd"}, lvl = {52,60}},
-	{ words={"Lbrs","lbrs"}, lvl = {52,60}},
-	{ words={"UBRS","Ubrs"}, lvl = {52,60}},
+	{ words={"Maraudon","Mara"}, lvl = {43,48}},
+	{ words={"Tempel"}, lvl = {47,50}},
+	{ words={"BRD","brd"}, lvl = {48,56}},
+	{ words={"Lbrs","lbrs"}, lvl = {54,60}},
+	{ words={"UBRS","Ubrs"}, lvl = {58,60}},
 	{ words={"Strath","Strat","stratholme","Staht"}, lvl = {58,60}},
 	{ words={"scholo","Scholomance"}, lvl = {58,60}},
 
@@ -54,11 +54,11 @@ local iniKeywords={
 	{ words={"bollwerk","hfb","bw"}, lvl = {58,62}},
 	{ words={"blutkessel","bk"}, lvl = {61,63}},
 	{ words={"sklaven","slavepen","sklavenunterkünfte","slave pens","slave"}, lvl = {62,64}},
-	{ words={"tiefensumpf","ts","underbog"}, lvl = {63,65}},
+	{ words={"tiefensumpf","ts","underbog","Sumpf"}, lvl = {63,65}},
 	{ words={"mana","managruft"}, lvl = {64,66}},
 	{ words={"auchenai","krypta","crypts"}, lvl = {65,67}},
 	{ words={"sethekkhallen","sethek"}, lvl = {67,68}},
-	{ words={"schattenlabyrinth","schlabbi","schattenlabby","sl"}, lvl = {67,75}},
+	{ words={"schattenlabyrinth","schlabbi","schattenlabby","sl","schlabby"}, lvl = {67,75}},
 	{ words={"dampfkammer","dk"}, lvl = {67,75}},
 	{ words={"zerschmetterten hallen","hallen"}, lvl = {67,75}},
 	{ words={"mechanar","mecha"}, lvl = {67,75}},
@@ -70,10 +70,10 @@ local iniKeywords={
 }
 
 local iniSubinstances={}
-iniSubinstances[1]={ words={"Friedhof","fh"}, lvl = {26,36}}
-iniSubinstances[2]={ words={"Bibliothek","bib","bibi"}, lvl = {29,39}}
-iniSubinstances[3]={ words={"Waffenkammer","wk"}, lvl = {35,45}}
-iniSubinstances[4]={ words={"Kathedrale","kat","kath","kathe"}, lvl = {35,45}}
+iniSubinstances[1]={ words={"Friedhof","fh"}, lvl = {30,32}}
+iniSubinstances[2]={ words={"Bibliothek","bib","bibi"}, lvl = {33,35}}
+iniSubinstances[3]={ words={"Waffenkammer","wk"}, lvl = {35,37}}
+iniSubinstances[4]={ words={"Kathedrale","kat","kath","kathe"}, lvl = {36,40}}
 
 for i,row in ipairs(iniKeywords) do
 	M_ChatPainter.arraySortByLen(row.words)

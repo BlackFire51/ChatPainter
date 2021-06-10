@@ -32,6 +32,23 @@ end
 
 
 
+function getGuildMemeberList()
+
+	local l={}
+
+	local numTotalMembers, numOnlineMaxLevelMembers, numOnlineMembers = GetNumGuildMembers();
+	for i=1,numTotalMembers do
+		local name, rank, rankIndex, level, class, zone, note, officernote, online, status, classFileName, achievementPoints, achievementRank, isMobile, isSoREligible, standingID = GetGuildRosterInfo(i);
+		table.insert(l,name)
+		--print(name)
+	end
+	return l
+end
+
+local guildMemberList = getGuildMemeberList();
+
+
+
 
 local iconKeywords = M_ChatPainter.iconKeywords
 local iniKeywords = M_ChatPainter.iniKeywords
@@ -159,9 +176,9 @@ local function myChatFilter(self, event, msg, author, ...)
 	lastLineId=lineID
 	--print(...)
 	--print(a)
-	--print(b)
+	--print(channelName)
 	if(channelName ~= "SucheNachGruppe" and channelName ~= "LookingForGroup" and channelName ~= "lfg" ) then
-		return
+		return 
 	end
 	--print(self)
 	--dump(self)
@@ -179,6 +196,8 @@ local function myChatFilter(self, event, msg, author, ...)
 
 	local mod=false
 	local myRoll=false
+
+
 
 
 	local iniList = findInstances(msg)
@@ -275,6 +294,10 @@ local function myChatFilter(self, event, msg, author, ...)
 	end
 
 
+	if (NS.functions.tContains(guildMemberList,author)) then 
+		--author= author..":G"  -- "|r" .. "|C05".."40ff40"..":G".."|r" 
+		msg = "|C05".."40ff40".."G:".."|r" ..  msg
+	end
 	if mod then
 		return false, msg, author, ...
 	end
@@ -285,7 +308,6 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", myChatFilter)
 
 SLASH_CHATPAINTER1 = "/cp"
 SlashCmdList["CHATPAINTER"] = function( msg, ...)
-   print(msg)
    --print(...)
    for key,value in ipairs(...) do
 	print(value)
@@ -313,3 +335,5 @@ end
 -- 		end
 -- 	end
 -- end 
+
+

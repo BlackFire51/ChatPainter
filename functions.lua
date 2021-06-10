@@ -25,6 +25,8 @@ local function colorText(text,lvlDiffMin,lvlDiffMax)
 	local orange="fc8c03"
 	local yellow="fce703"
 	local green="00b530"
+	local hsColor="7fffac"
+	local darkRed="c00700"
 	local txt=orange
 	if(lvlDiffMin and lvlDiffMin<1) then
 		txt=yellow
@@ -32,6 +34,24 @@ local function colorText(text,lvlDiffMin,lvlDiffMax)
 	if(lvlDiffMax and lvlDiffMax<0) then
 		txt=green
 	end
+	if(lvlDiffMin and lvlDiffMin>4) then
+		txt=darkRed
+	end
 	return "|CFF"..txt..text.."|r"	--|cAARRGGBB https://wowwiki.fandom.com/wiki/UI_escape_sequences
 end
 NS.functions.colorText=colorText
+
+local function tContains(table, item)
+	if(table == nil) then
+		return nil
+	end
+	local index = 1;
+	while table[index] do
+			if ( item == table[index] ) then
+				return 1;
+			end
+			index = index + 1;
+	end
+	return nil;
+end
+NS.functions.tContains = tContains
