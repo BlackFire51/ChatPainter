@@ -21,11 +21,11 @@ end
 M_ChatPainter.addTexture=addTexture
 NS.functions.addTexture=addTexture
 
-local function colorText(text,lvlDiffMin,lvlDiffMax) 
+local function colorText(text,lvlDiffMin,lvlDiffMax,isHC) 
 	local orange="fc8c03"
 	local yellow="fce703"
 	local green="00b530"
-	local hsColor="7fffac"
+	local hcColor="7fffac"
 	local darkRed="c00700"
 	local txt=orange
 	if(lvlDiffMin and lvlDiffMin<1) then
@@ -36,6 +36,9 @@ local function colorText(text,lvlDiffMin,lvlDiffMax)
 	end
 	if(lvlDiffMin and lvlDiffMin>4) then
 		txt=darkRed
+	end
+	if isHC then
+		txt=hcColor
 	end
 	return "|CFF"..txt..text.."|r"	--|cAARRGGBB https://wowwiki.fandom.com/wiki/UI_escape_sequences
 end

@@ -177,7 +177,7 @@ local function myChatFilter(self, event, msg, author, ...)
 	--print(...)
 	--print(a)
 	--print(channelName)
-	if(channelName ~= "SucheNachGruppe" and channelName ~= "LookingForGroup" and channelName ~= "lfg" ) then
+	if(channelName ~= "SucheNachGruppe" and channelName ~= "LookingForGroup" and channelName ~= "lfg" and channelName ~= "") then
 		return 
 	end
 	--print(self)
@@ -204,6 +204,10 @@ local function myChatFilter(self, event, msg, author, ...)
 
 	local msg_offset=0
 	if(tablelength(iniList) > 0 )then
+		local HC_Override=false
+		if string.find(msglow," hc") ~= nil then 
+			HC_Override=true
+		end
 		for j,iniObj in ipairs(iniList) do
 			local ini = iniObj.kw
 			if DEBUG then print("found ini "..ini.words[1]) end
@@ -218,14 +222,14 @@ local function myChatFilter(self, event, msg, author, ...)
 					-- if it is my lvl range play sound
 					PlaySound(3081,"master")
 				end
-				if NS.settings.addLevels then
+				if NS.settings.addLevels and not HC_Override then
 					addText="("..tostring(ini.lvl[1]).."-"..tostring(ini.lvl[2])..")"
 				end
 				lvlDiff=ini.lvl[1]-lvl
 				lvlDiffMax=ini.lvl[2]-lvl
 			end
 			--print(row.lvl[1])
-			local newWord=NS.functions.colorText(iniObj.w,lvlDiff,lvlDiffMax)..addText;
+			local newWord=NS.functions.colorText(iniObj.w,lvlDiff,lvlDiffMax,HC_Override)..addText;
 			msg= gsub(msg, iniObj.w, newWord) -- replace txt in msg 
 			msg_offset=msg_offset+(strlen(newWord)-strlen(iniObj.w))
 			mod=true
@@ -297,6 +301,7 @@ local function myChatFilter(self, event, msg, author, ...)
 	if (NS.functions.tContains(guildMemberList,author)) then 
 		--author= author..":G"  -- "|r" .. "|C05".."40ff40"..":G".."|r" 
 		msg = "|C05".."40ff40".."G:".."|r" ..  msg
+		mod=true
 	end
 	if mod then
 		return false, msg, author, ...
@@ -304,18 +309,42 @@ local function myChatFilter(self, event, msg, author, ...)
 end
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", myChatFilter)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", myChatFilter)
 
 
 SLASH_CHATPAINTER1 = "/cp"
 SlashCmdList["CHATPAINTER"] = function( msg, ...)
    --print(...)
-   for key,value in ipairs(...) do
-	print(value)
-   end
-   DEBUG=true
-   local bool,retMsg,auth = myChatFilter(nil, "CHAT_MSG_CHANNEL", msg, "Nobody", "channelStr", "charName", "ukn1","a","b", 4, "SucheNachGruppe" ,"ukn2","unk3" ,"senderGUID", "ukn4", "unk5")
-   DEBUG=false	
-   print(retMsg)
+--    for key,value in ipairs(...) do
+-- 	print(value)
+--    end
+
+	local a1,a2,a3,a4 = strsplit(" ", msg)
+
+	if a1=="test" then
+		DEBUG=true
+		local bool,retMsg,auth = myChatFilter(nil, "CHAT_MSG_CHANNEL", msg, "Nobody", "channelStr", "charName", "ukn1","a","b", 4, "SucheNachGruppe" ,"ukn2","unk3" ,"senderGUID", "ukn4", "unk5")
+		DEBUG=false	
+		print(retMsg)
+	elseif a1 =="showLevels" then
+		if a2 == "1" or a2 =="true" then
+			NS.settings.addLevels=true
+		else
+			NS.settings.addLevels=false
+		end
+	elseif a1 =="notify" then
+
+		if a2 == "1" or a2 =="true" then
+			NS.settings.NotificationSound=true
+		else
+			NS.settings.NotificationSound=false
+		end
+	else
+		print("settings: ")
+		print("/cp showLevels [0|1]  -- Adds level to the instances in chat")
+		print("/cp notify [0|1]  -- plays a notification sound if a insatcne in your lvl range is mentioned")
+	end
+
 end 
 -- /cp Suche Gruppe für Todesmine
 -- /cp Mage sucht An an strath ud

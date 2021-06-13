@@ -30,7 +30,7 @@ local iconKeywords={
 	{watch=false, texture="Interface\\Icons\\Spell_nature_healingtouch",color="1cd96b", words={"heal","healer","heiler"}} -- "heal" all lower must be first because of texture name
 }
 local iniKeywords={
-	{ words={"rfc","RFK"}, lvl = {13,16}},
+	{ words={"rfc","RFK","flammenschlund"}, lvl = {13,16}},
 	{ words={"dm","Todesminen","Todesmine","Deathmines"}, lvl = {18,22}, blacklist={"Nord","West","Ost"}},
 	{ words={"höllen des wehklagens","hdw"}, lvl = {17,21}},
 	{ words={"burg schattenfang","bsf","bft"}, lvl = {18,21}},
@@ -54,18 +54,18 @@ local iniKeywords={
 	{ words={"bollwerk","hfb","bw"}, lvl = {58,62}},
 	{ words={"blutkessel","bk"}, lvl = {61,63}},
 	{ words={"sklaven","slavepen","sklavenunterkünfte","slave pens","slave"}, lvl = {62,64}},
-	{ words={"tiefensumpf","ts","underbog","Sumpf"}, lvl = {63,65}},
+	{ words={"tiefensumpf","ts","underbog","Sumpf","tiefen"}, lvl = {63,65}},
 	{ words={"mana","managruft"}, lvl = {64,66}},
 	{ words={"auchenai","krypta","crypts"}, lvl = {65,67}},
 	{ words={"sethekkhallen","sethek"}, lvl = {67,68}},
-	{ words={"schattenlabyrinth","schlabbi","schattenlabby","sl","schlabby"}, lvl = {67,75}},
+	{ words={"schattenlabyrinth","schlabbi","schattenlabby","sl","schlabby","schattenlaby"}, lvl = {67,75}},
 	{ words={"dampfkammer","dk"}, lvl = {67,75}},
 	{ words={"zerschmetterten hallen","hallen"}, lvl = {67,75}},
 	{ words={"mechanar","mecha"}, lvl = {67,75}},
 	{ words={"botanika","bota"}, lvl = {67,75}},
 	{ words={"arkatraz"}, lvl = {67,75}},
-	{ words={"vdah","hilfsbrad","hdz1"}, lvl = {66,68}},
-	{ words={"schwarze morast","morast","hdz2"}, lvl = {67,75}},
+	{ words={"vdah","hilfsbrad","hdz1","hdz 1"}, lvl = {66,68}},
+	{ words={"schwarze morast","morast","hdz2","hdz 2"}, lvl = {67,75}},
 	{ words={"terrasse der magister","tdm"}, lvl = {67,75}},
 }
 
